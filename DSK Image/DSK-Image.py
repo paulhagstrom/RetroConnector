@@ -11,14 +11,14 @@ import os,sys				# filesystem functions
 import png				# PNG image library
 
 try:
-    INPUTFILE = sys.argv[1]             # what DSK file to parse
-    DSK = open(INPUTFILE, "rb")		# open the DSK file for reading
+	INPUTFILE = sys.argv[1]			 # what DSK file to parse
+	DSK = open(INPUTFILE, "rb")		# open the DSK file for reading
 except:
-    print("\n\nUsage: python [filename]\n\n [filename] should be a DSK file of 143kb.\n\n")
-    sys.exit(0)				# exit on exception - no file chosen
+	print("\n\nUsage: python [filename]\n\n [filename] should be a DSK file of 143kb.\n\n")
+	sys.exit(0)				# exit on exception - no file chosen
 finally:
 
-    PNG = open("DiskImageTEMP.png", "wb")	# open a PNG for writing
+	PNG = open("DiskImageTEMP.png", "wb")	# open a PNG for writing
 
 					# The point: Make a PNG image from the data on a floppy disk image.
 					# 35 tracks, each with 16 sectors of 256 bytes each, for a total of 143,360 bytes
@@ -29,32 +29,32 @@ BYTES = []
 PIXELS = []
 
 try:
-    byte = DSK.read(1) 			# read a byte
-    while byte !="":			# while the file still has bytes in it
-        byte = DSK.read(1)	
+	byte = DSK.read(1) 			# read a byte
+	while byte !="":			# while the file still has bytes in it
+		byte = DSK.read(1)	
 	if len(byte) > 0: 		# the last byte, for whatever reason, is length 0. Bah.
-	    BYTES.append(ord(byte))	# append the number representing the byte (0-255) to the BYTES array
+		BYTES.append(ord(byte))	# append the number representing the byte (0-255) to the BYTES array
 	
 except:
-    print("\n\nOops. Is " + INPUTFILE + " a DSK file of 143kb?\n\n")
-    sys.exit(0)				# exit on exception - file is empty, etc
+	print("\n\nOops. Is " + INPUTFILE + " a DSK file of 143kb?\n\n")
+	sys.exit(0)				# exit on exception - file is empty, etc
 finally:
 
-    sys.stdout.write("\r Starting.\n\n")
+	sys.stdout.write("\r Starting.\n\n")
 
 
-    for TRACK in range(0,35,1):		# for each of the 35 tracks
+	for TRACK in range(0,35,1):		# for each of the 35 tracks
 	LINE=[]				# start a new line of pixels
 	for SECTOR in range(0,4096,1):	# write the bytes for the sectors in that track to the line array
-	    offset = (SECTOR * TRACK) + SECTOR
-	    LINE.append(BYTES[(SECTOR * TRACK) + SECTOR])
+		offset = (SECTOR * TRACK) + SECTOR
+		LINE.append(BYTES[(SECTOR * TRACK) + SECTOR])
 
 	sys.stdout.write("\r Track: " + str(TRACK))
 	sys.stdout.flush()
 	PIXELS.append(LINE)		# add the array of pixels to the array of arrays
 
-    sys.stdout.write("\n\n\r Done.\n\n")
-    sys.stdout.flush()
+	sys.stdout.write("\n\n\r Done.\n\n")
+	sys.stdout.flush()
  
 					# write to the PNG file 
 w = png.Writer(4096,35, greyscale=True, bitdepth=8) 
