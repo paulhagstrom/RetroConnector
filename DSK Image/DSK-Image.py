@@ -14,7 +14,7 @@ try:
 	INPUTFILE = sys.argv[1]			 # what DSK file to parse
 	DSK = open(INPUTFILE, "rb")		# open the DSK file for reading
 except:
-	print("\n\nUsage: python [filename]\n\n [filename] should be a DSK file of 143kb.\n\n")
+	print("\n\nUsage: DSK-Image [filename]\n\n [filename] should be a DSK file of 143kb.\n\n")
 	sys.exit(0)				# exit on exception - no file chosen
 finally:
 
