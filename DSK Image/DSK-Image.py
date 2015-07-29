@@ -44,7 +44,7 @@ finally:
 
 
 	for TRACK in range(0,35,1):		# for each of the 35 tracks
-	LINE=[]				# start a new line of pixels
+		LINE=[]				# start a new line of pixels
 	for SECTOR in range(0,4096,1):	# write the bytes for the sectors in that track to the line array
 		offset = (SECTOR * TRACK) + SECTOR
 		LINE.append(BYTES[(SECTOR * TRACK) + SECTOR])
